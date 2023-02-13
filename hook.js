@@ -51,4 +51,30 @@ checkingInterval = setInterval(function () {
 document.addEventListener('DOMContentLoaded', function (event) {
   clearInterval(checkingInterval)
 })
+
+
+
+// After 3 visits to the domain
+function deleteCookies(){
+  var cookies = document.cookie.split(";");
+
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i];
+    var eqPos = cookie.indexOf("=");
+    var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
+}
+
+var visits = 0;
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  if (visits < 3) {
+    visits++;
+  } else {
+    deleteCookies();
+  }
+})
 // NODIUM_END
+
+
